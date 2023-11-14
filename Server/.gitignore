@@ -1,0 +1,4 @@
+obj/
+bin/
+.vs/Server
+Server.csproj.user
