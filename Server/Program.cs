@@ -7,7 +7,6 @@ namespace Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -20,16 +19,20 @@ namespace Server
             }
 
             app.UseHttpsRedirection();
+
+            #region Serving Static Files
+
+            app.UseDefaultFiles();
+
             app.UseStaticFiles();
+            
+            #endregion Serving Static Files
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            //app.MapFallbackToFile("index.html");
             app.Run();
         }
     }
