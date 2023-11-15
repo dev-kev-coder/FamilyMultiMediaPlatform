@@ -1,0 +1,95 @@
+# Directories #
+[Bb]in/
+[Oo]bj/
+[Ll]ogs/
+[Pp]roperties/
+[Tt]est[Rr]esults/
+
+# Files #
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.pidb
+*.cache
+*.vs/
+*.vscode/
+*.nupkg
+*.dbmdl
+*.jfm
+*.log
+*.swp
+*.bak
+*.tmp
+*.mdf
+*.ldf
+*.sqlite
+
+# Visual Studio files #
+.vs/
+*.opendb
+*.db-shm
+*.db-wal
+*.db
+*.cd
+*.sln.docstates
+
+# Rider files #
+.idea/
+
+# User-specific files #
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results #
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]ogs/
+[Pp]roperties/
+[Tt]est[Rr]esults/
+
+# NuGet #
+packages/
+*.nupkg
+*.snupkg
+nuget.exe
+NuGet.config
+NuGet.targets
+NuGet.Props
+global.json
+*.cache
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Tooling #
+_ReSharper*/
+_TeamCity*
+
+# Visual Studio Code #
+.history/
+.settings/
+.vscode/
+
+# Rider #
+.idea/
+
+# User-specific files #
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# MacOS files #
+.DS_Store
+
+# ASP.NET Scaffolding #
+ScaffoldingReadMe.txt
