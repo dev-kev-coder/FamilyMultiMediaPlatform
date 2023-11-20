@@ -1,7 +1,11 @@
 import React from 'react';
 
+import FileUploaderContainer from './Pages/FileUploader';
+
 const App = () => {
-  return <h1>My React App</h1>;
+  return <>
+  <FileUploaderContainer />
+  </>
 };
 
 export default App;
