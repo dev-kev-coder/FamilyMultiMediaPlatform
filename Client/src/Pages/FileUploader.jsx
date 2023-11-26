@@ -1,68 +1,85 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const calculateRelativeFileSize = (fileSizeInBytes) => {
+const calculateFileSize = (fileSizeInBytes) => {
   // do some calculation that will return the corresponding size
   // I.E. Bytes, KB, MB, GB, ...Etc.
   return fileSizeInBytes;
 };
 
-const displayUploadedFiles = (upLoadedFiles) => {
-  const reactNodes = [];
-
-  if (Object.keys(upLoadedFiles).length > 0) {
-    for (const fileName in upLoadedFiles) {
-      const currentFile = upLoadedFiles[fileName];
-      const node = (
-        <div key={fileName}>
-          FileName: {fileName}, FileSize:{currentFile.fileSize}, Date Uploaded:{' '}
-          {currentFile.uploadTime}
-        </div>
-      );
-
-      reactNodes.push(node);
-      console.log('reactNodes: ', reactNodes);
-    }
-  }
-
-  return reactNodes;
+const formatToMonthDayYear = (datetime) => {
+  // format date in more userfriendly format
+  return datetime;
 };
 
-const FileUploaderContainer = () => {
-  const [filesUploaded, setFilesUploaded] = useState({});
-  const fileInput = useRef(null);
+const confirmWithUser = (callback) => {
+  if (!callback)
+    return confirm('File Name exists already would you like to upload a copy?');
+  else return notification();
+};
 
-  const handleChange = (_) => {
-    const files = fileInput.current.files;
-    const currentFiles = { ...filesUploaded };
+const addFile = (file, files) => {
+  const { name, size, lastModified } = file;
 
-    for (let file of files) {
-      const { name, size, lastModified } = file;
+  if (files[name]) return false;
 
-      if (currentFiles[name]) alert('file already exists');
-      else {
-        currentFiles[name] = {
-          fileName: name,
-          fileSize: calculateRelativeFileSize(size),
-          uploadTime: lastModified,
-        };
+  files[name] = {
+    name,
+    size: calculateFileSize(size),
+    lastModified: formatToMonthDayYear(lastModified),
+  };
+
+  return true;
+};
+
+const FileUploaderContainer = ({ notificationCallback }) => {
+  const [filesToUpload, setFilesUploaded] = useState({});
+
+  console.log(filesToUpload);
+
+  const handleChange = (e) => {
+    const selectedfiles = e.target.files;
+    const updatedFilesToUpload = { ...filesToUpload };
+
+    for (let file of selectedfiles) {
+      if (updatedFilesToUpload[file.name]) {
+        const uploadCopy = confirmWithUser(notificationCallback);
+
+        if (uploadCopy) {
+          let copyAdded = false;
+          let copyVersionNum = 0;
+
+          while (!copyAdded) {
+            let fileCopyName = `${file.name} - (${copyVersionNum})`;
+
+            const fileCopy = new File([file], fileCopyName, {
+              type: file.type,
+              lastModified: file.lastModified,
+            });
+
+            copyAdded = addFile(fileCopy, updatedFilesToUpload);
+            copyVersionNum++;
+          }
+        }
+      } else {
+        const fileAdded = addFile(file, updatedFilesToUpload);
+
+        if (!fileAdded) alert('Something went wrong');
       }
     }
 
-    setFilesUploaded(currentFiles);
+    setFilesUploaded(updatedFilesToUpload);
   };
 
   return (
     <div>
       <label htmlFor="file">File</label>
       <input
-        ref={fileInput}
         id="fileInput"
         name="file"
         type="file"
         multiple
         onChange={handleChange}
       />
-      <>{displayUploadedFiles(filesUploaded)}</>
     </div>
   );
 };
