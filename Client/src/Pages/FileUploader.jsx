@@ -12,7 +12,7 @@ const calculateFileSize = (fileSizeInBytes) => {
     unitIndex++;
   }
 
-  return `${fileSize.toFixed(2)} ${units[unitIndex]}}`;
+  return `${fileSize.toFixed(2)} ${units[unitIndex]}`;
 };
 
 const formatToMonthDayYear = (datetime) => {
