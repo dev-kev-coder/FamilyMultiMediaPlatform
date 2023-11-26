@@ -1,14 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const calculateFileSize = (fileSizeInBytes) => {
-  // do some calculation that will return the corresponding size
-  // I.E. Bytes, KB, MB, GB, ...Etc.
-  return fileSizeInBytes;
+  const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+  let unitIndex = 0;
+
+  let fileSize = fileSizeInBytes;
+
+  while (fileSize >= 1024 && unitIndex < units.length - 1) {
+    fileSize /= 1024;
+    unitIndex++;
+  }
+
+  return `${fileSize.toFixed(2)} ${units[unitIndex]}}`;
 };
 
 const formatToMonthDayYear = (datetime) => {
-  // format date in more userfriendly format
-  return datetime;
+  const date = new Date(datetime);
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
 };
 
 const confirmWithUser = (callback) => {
@@ -23,6 +36,7 @@ const addFile = (file, files) => {
   if (files[name]) return false;
 
   files[name] = {
+    payload: file,
     name,
     size: calculateFileSize(size),
     lastModified: formatToMonthDayYear(lastModified),
@@ -40,7 +54,7 @@ const FileUploaderContainer = ({ notificationCallback }) => {
     const selectedfiles = e.target.files;
     const updatedFilesToUpload = { ...filesToUpload };
 
-    for (let file of selectedfiles) {
+    for (const file of selectedfiles) {
       if (updatedFilesToUpload[file.name]) {
         const uploadCopy = confirmWithUser(notificationCallback);
 
