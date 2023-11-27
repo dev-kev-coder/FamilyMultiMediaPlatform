@@ -1,5 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
+const updateFilesToUploadState = (
+  usersFiles,
+  filesToUpload,
+  setStateCallback,
+) => {
+  for (const file of usersFiles) {
+    if (filesToUpload[file.name]) {
+      const uploadCopy = confirmWithUser();
+
+      if (uploadCopy) {
+        let copyAdded = false;
+        let copyVersionNum = 0;
+
+        while (!copyAdded) {
+          let fileCopyName = `${file.name} - (${copyVersionNum})`;
+
+          const fileCopy = new File([file], fileCopyName, {
+            type: file.type,
+            lastModified: file.lastModified,
+          });
+
+          copyAdded = addFile(fileCopy, filesToUpload);
+          copyVersionNum++;
+        }
+      }
+    } else {
+      const fileAdded = addFile(file, filesToUpload);
+
+      if (!fileAdded) alert('Something went wrong');
+    }
+
+    setStateCallback(filesToUpload);
+  }
+};
 const calculateFileSize = (fileSizeInBytes) => {
   const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 
@@ -51,49 +85,51 @@ const FileUploaderContainer = ({ notificationCallback }) => {
   console.log(filesToUpload);
 
   const handleChange = (e) => {
-    const selectedfiles = e.target.files;
+    const newFiles = e.target.files;
+
     const updatedFilesToUpload = { ...filesToUpload };
 
-    for (const file of selectedfiles) {
-      if (updatedFilesToUpload[file.name]) {
-        const uploadCopy = confirmWithUser(notificationCallback);
+    updateFilesToUploadState(newFiles, updatedFilesToUpload, setFilesUploaded);
+  };
 
-        if (uploadCopy) {
-          let copyAdded = false;
-          let copyVersionNum = 0;
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
 
-          while (!copyAdded) {
-            let fileCopyName = `${file.name} - (${copyVersionNum})`;
+  const handleDrop = (event) => {
+    event.preventDefault();
 
-            const fileCopy = new File([file], fileCopyName, {
-              type: file.type,
-              lastModified: file.lastModified,
-            });
+    const newFiles = event.dataTransfer.files;
 
-            copyAdded = addFile(fileCopy, updatedFilesToUpload);
-            copyVersionNum++;
-          }
-        }
-      } else {
-        const fileAdded = addFile(file, updatedFilesToUpload);
+    const updatedFilesToUpload = { ...filesToUpload };
 
-        if (!fileAdded) alert('Something went wrong');
-      }
-    }
-
-    setFilesUploaded(updatedFilesToUpload);
+    updateFilesToUploadState(newFiles, updatedFilesToUpload, setFilesUploaded);
   };
 
   return (
     <div>
-      <label htmlFor="file">File</label>
+      {/* <label htmlFor="file">File</label>
       <input
         id="fileInput"
         name="file"
         type="file"
         multiple
         onChange={handleChange}
-      />
+      /> */}
+
+      <div
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        style={{
+          border: '2px dashed black',
+          padding: '20px',
+          width: '300px',
+          margin: 'auto',
+        }}
+      >
+        <input type="file" onChange={handleChange} multiple />
+        <p>Drag and drop files here, or click to select files</p>
+      </div>
     </div>
   );
 };
