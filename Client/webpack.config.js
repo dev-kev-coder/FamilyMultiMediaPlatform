@@ -11,8 +11,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@hooks': path.resolve(__dirname + '/src/hooks'),
-      '@sharedComponents': path.resolve(__dirname + '/src/sharedComponents'),
+      '@sharedHooks': path.resolve(__dirname + '/src/shared/hooks'),
+      '@sharedComponents': path.resolve(__dirname + '/src/shared/components'),
     },
   },
   module: {

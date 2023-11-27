@@ -90,10 +90,12 @@ export default () => {
   };
 
   const handleDragOver = (event) => {
+    console.log('in dragover hanlders');
     event.preventDefault();
   };
 
   const handleDrop = (event) => {
+    console.log('in drop hanlders');
     event.preventDefault();
 
     const newFiles = event.dataTransfer.files;
@@ -106,7 +108,7 @@ export default () => {
   return {
     filesToUpload,
     handleFilesChange: handleChange,
-    handelFilesDragOver: handleDragOver,
+    handleFilesDragOver: handleDragOver,
     handleFilesDrop: handleDrop,
   };
 };
