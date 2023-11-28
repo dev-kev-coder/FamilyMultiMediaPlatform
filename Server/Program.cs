@@ -6,8 +6,10 @@ namespace Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services
+                .AddControllers();
 
+            // Add services to the container.
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,6 +35,13 @@ namespace Server
             //app.UseAuthorization();
 
             //app.MapFallbackToFile("index.html");
+
+            app.UseEndpoints(endpoints =>
+            {
+                var test = endpoints;
+                endpoints.MapControllers();
+            });
+
             app.Run();
         }
     }
