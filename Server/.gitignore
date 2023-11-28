@@ -36,6 +36,7 @@
 
 # Rider files #
 .idea/
+/wwwroot/js/reactapp/
 
 # User-specific files #
 *.suo
