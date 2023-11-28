@@ -78,6 +78,12 @@ const addFile = (file, files) => {
 
   return true;
 };
+
+const preventDefaults = (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+};
+
 export default () => {
   const [filesToUpload, setFilesUploaded] = useState({});
 
@@ -89,16 +95,18 @@ export default () => {
     updateFilesToUploadState(newFiles, updatedFilesToUpload, setFilesUploaded);
   };
 
-  const handleDragOver = (event) => {
-    console.log('in dragover hanlders');
-    event.preventDefault();
+  const handleDragOver = (e) => {
+    preventDefaults(e);
   };
 
-  const handleDrop = (event) => {
-    console.log('in drop hanlders');
-    event.preventDefault();
+  const handleDragEnter = (e) => {
+    preventDefaults(e);
+  };
 
-    const newFiles = event.dataTransfer.files;
+  const handleDrop = (e) => {
+    preventDefaults(e);
+
+    const newFiles = e.dataTransfer.files;
 
     const updatedFilesToUpload = { ...filesToUpload };
 
@@ -107,6 +115,7 @@ export default () => {
 
   return {
     filesToUpload,
+    handleFilesDragEnter: handleDragEnter,
     handleFilesChange: handleChange,
     handleFilesDragOver: handleDragOver,
     handleFilesDrop: handleDrop,
