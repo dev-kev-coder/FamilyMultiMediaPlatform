@@ -9,9 +9,29 @@ const FileUpload = () => {
     handleFilesChange,
     handleFilesDragOver,
     handleFilesDrop,
+    handleFilesDragEnter,
   } = useFileUploader();
 
-  console.log('Files to upload: ', filesToUpload);
+  const handleUpload = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    const files = Object.values(filesToUpload);
+
+    for (const file of files) {
+      formData.append('Files', file.payload);
+    }
+
+    console.log(formData);
+
+    fetch('api/Files/UploadFiles', {
+      method: 'POST',
+      body: formData,
+    }).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <div>
@@ -19,9 +39,14 @@ const FileUpload = () => {
         onChange={handleFilesChange}
         onDragOver={handleFilesDragOver}
         onDrop={handleFilesDrop}
+        onDragEnter={handleFilesDragEnter}
       />
 
       <DisplayFiles files={filesToUpload} />
+
+      <button type="button" onClick={handleUpload}>
+        Upload Files
+      </button>
     </div>
   );
 };
