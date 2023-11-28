@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FileUpload } from '@sharedComponents/FileUpload';
 
 const FileUploaderContainer = ({ notificationCallback }) => {

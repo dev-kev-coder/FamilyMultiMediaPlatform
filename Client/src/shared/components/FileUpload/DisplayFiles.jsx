@@ -3,8 +3,6 @@ import React from 'react';
 const DisplayFiles = ({ files }) => {
   const filesList = Object.values(files);
 
-  console.log('Files to display in list: ', filesList);
-
   return (
     <>
       {filesList.map((file) => {
