@@ -89,8 +89,8 @@ const preventDefaults = (e) => {
   e.preventDefault();
 };
 
-export default ({ maxFileSize = undefined }) => {
-  const maxSize = !maxFileSize || 5 * 1024 * 1024;
+export default (options) => {
+  const maxSize = options?.maxSize ?? 100 * 1024 * 1024;
 
   const [filesToUpload, setFilesUploaded] = useState({});
 
