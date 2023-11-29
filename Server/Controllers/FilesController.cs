@@ -9,6 +9,7 @@ namespace Server.Controllers
     {
         [HttpPost]
         [Route("UploadFiles")]
+        [RequestSizeLimit(100_000_000)] // 100 MB
         public ActionResult UploadFiles()
         {
 

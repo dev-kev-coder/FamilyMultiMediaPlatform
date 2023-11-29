@@ -6,8 +6,22 @@ namespace Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            #region Configure WebHost Kestrel ReverseProxy
+            
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.Limits.MaxRequestBodySize = 100_000_000; // 100 MB
+            });
+            
+            #endregion Configure WebHost Kestrel ReverseProxy
+
+            #region Configure Services
+            
             builder.Services
                 .AddControllers();
+            
+            #endregion Configure Services
+
 
             // Add services to the container.
             var app = builder.Build();
