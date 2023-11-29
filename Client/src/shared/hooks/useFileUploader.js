@@ -4,6 +4,7 @@ const updateFilesToUploadState = (
   usersFiles,
   filesToUpload,
   setStateCallback,
+  maxSize,
 ) => {
   for (const file of usersFiles) {
     if (filesToUpload[file.name]) {
@@ -26,9 +27,9 @@ const updateFilesToUploadState = (
         }
       }
     } else {
-      const fileAdded = addFile(file, filesToUpload);
+      const [fileAdded, errorMessage] = addFile(file, filesToUpload, maxSize);
 
-      if (!fileAdded) alert('Something went wrong');
+      if (!fileAdded) alert(errorMessage);
     }
 
     setStateCallback(filesToUpload);
@@ -64,10 +65,14 @@ const confirmWithUser = (callback) => {
   else return notification();
 };
 
-const addFile = (file, files) => {
+const addFile = (file, files, maxSize) => {
   const { name, size, lastModified } = file;
 
-  if (files[name]) return false;
+  if (size > maxSize)
+    return [
+      false,
+      `Error: ${name} is bigger than ${calculateFileSize(maxSize)}`,
+    ];
 
   files[name] = {
     payload: file,
@@ -76,7 +81,7 @@ const addFile = (file, files) => {
     lastModified: formatToMonthDayYear(lastModified),
   };
 
-  return true;
+  return [true, null];
 };
 
 const preventDefaults = (e) => {
@@ -84,7 +89,9 @@ const preventDefaults = (e) => {
   e.preventDefault();
 };
 
-export default () => {
+export default ({ maxFileSize = undefined }) => {
+  const maxSize = !maxFileSize || 5 * 1024 * 1024;
+
   const [filesToUpload, setFilesUploaded] = useState({});
 
   const handleChange = (e) => {
@@ -92,7 +99,12 @@ export default () => {
 
     const updatedFilesToUpload = { ...filesToUpload };
 
-    updateFilesToUploadState(newFiles, updatedFilesToUpload, setFilesUploaded);
+    updateFilesToUploadState(
+      newFiles,
+      updatedFilesToUpload,
+      setFilesUploaded,
+      maxSize,
+    );
   };
 
   const handleDragOver = (e) => {
@@ -110,7 +122,12 @@ export default () => {
 
     const updatedFilesToUpload = { ...filesToUpload };
 
-    updateFilesToUploadState(newFiles, updatedFilesToUpload, setFilesUploaded);
+    updateFilesToUploadState(
+      newFiles,
+      updatedFilesToUpload,
+      setFilesUploaded,
+      maxSize,
+    );
   };
 
   return {
