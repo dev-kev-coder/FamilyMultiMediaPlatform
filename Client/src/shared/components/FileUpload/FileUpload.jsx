@@ -10,6 +10,7 @@ const FileUpload = () => {
     handleFilesDragOver,
     handleFilesDrop,
     handleFilesDragEnter,
+    handleFilesDragLeave,
   } = useFileUploader();
 
   const handleUpload = (e) => {
@@ -40,6 +41,7 @@ const FileUpload = () => {
         onDragOver={handleFilesDragOver}
         onDrop={handleFilesDrop}
         onDragEnter={handleFilesDragEnter}
+        onDragLeave={handleFilesDragLeave}
       />
 
       <DisplayFiles files={filesToUpload} />

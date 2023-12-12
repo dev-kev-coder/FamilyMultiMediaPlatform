@@ -115,6 +115,10 @@ export default (options) => {
     preventDefaults(e);
   };
 
+  const handleDragLeave = (e) => {
+    preventDefaults(e);
+  };
+
   const handleDrop = (e) => {
     preventDefaults(e);
 
@@ -132,6 +136,7 @@ export default (options) => {
 
   return {
     filesToUpload,
+    handleFilesDragLeave: handleDragLeave,
     handleFilesDragEnter: handleDragEnter,
     handleFilesChange: handleChange,
     handleFilesDragOver: handleDragOver,
