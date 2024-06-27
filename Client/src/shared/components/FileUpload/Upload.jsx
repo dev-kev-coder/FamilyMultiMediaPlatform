@@ -1,63 +1,76 @@
 import React, { useState } from 'react';
 
-const Upload = ({ onChange, onDragOver, onDrop, onDragEnter, onDragLeave }) => {
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+const DefaultUploadContainer = ({ isDragOver, children }) => {
+  const dragOverStyle = isDragOver
+    ? { backgroundColor: 'red' }
+    : { backgroundColor: 'blue' };
 
-  const handleOnDragOver = (e) => {
-    onDragOver(e);
+  return (
+    <div
+      style={{
+        border: '2px dashed black',
+        display: 'block',
+        cursor: 'pointer',
+        // width: '100%',
+        // height: '200px',
+        ...dragOverStyle,
+      }}
+      // onDragOver={(e) => e.stopPropagation()}
+      // onDragLeave={(e) => e.stopPropagation()}
+      // onDrop={(e) => e.stopPropagation()}
+    >
+      {children}
+    </div>
+  );
+};
+
+const Upload = ({
+  onChange = null,
+  onDrop,
+  UploadOverlayComponent = DefaultUploadContainer,
+  children,
+}) => {
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleOnDragLeave = (e) => {
-    onDragLeave(e);
+  const handleDragLeave = (e) => {
+    e.preventDefault();
     setIsDragOver(false);
   };
 
-  const handleMouseEnter = (e) => {
+  const handleDrop = (e) => {
     e.preventDefault();
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = (e) => {
-    e.preventDefault();
-    setIsHovered(false);
-  };
-
-  const getBackgroundColor = () => {
-    if (isDragOver) return 'lightblue'; // Color when dragging files over
-    if (isHovered) return 'lightgreen'; // Color when mouse hovers over
-    return 'white'; // Default color
+    setIsDragOver(false);
+    if (onDrop) onDrop(e.dataTransfer.files);
   };
 
   return (
     <label
       htmlFor="UploadFilesInput"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onDragOver={handleOnDragOver}
-      onDragLeave={handleOnDragLeave}
-      onDrop={onDrop}
-      onDragEnter={onDragEnter}
-      style={{
-        // overridible styles here
-        height: '20em',
-        width: '40em',
-        // cannot be overridden
-        border: '2px dashed black',
-        display: 'block',
-        cursor: 'pointer',
-        backgroundColor: '#808080',
-      }}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      // style={{
+      //   // overridible styles here
+      //   height: '20em',
+      //   width: '40em',
+      //   // cannot be overridden
+      //   border: '2px dashed black',
+      //   display: 'block',
+      //   cursor: 'pointer',
+      //   backgroundColor: '#808080',
+      // }}
     >
-      <h1 style={{ color: 'white' }}>Upload Files</h1>
+      <UploadOverlayComponent isDragOver={isDragOver} children={children} />
+
       <input
-        id="UploadFilesInput"
         type="file"
         onChange={onChange}
-        style={{
-          display: 'none',
-        }}
+        style={{ display: 'none' }}
         multiple
       />
     </label>
