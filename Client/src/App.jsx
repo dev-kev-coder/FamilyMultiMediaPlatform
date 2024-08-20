@@ -2,7 +2,16 @@ import Folder from '@sharedComponents/Folder/Folder';
 import React, { useState } from 'react';
 import FoldersAndFilesContainer from './components/FoldersAndFilesContainer';
 import './app.css';
+import { pipe } from './shared/utils/pipeCore';
 const App = () => {
+  const value = pipe(1)
+    .to((x) => x + 100)
+    .to((x) => x + 100)
+    .to((x) => x + 30);
+
+  console.log(value);
+  console.log('test');
+
   return (
     <>
       <header
