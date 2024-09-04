@@ -5,50 +5,45 @@ import UploadUI from '@sharedComponents/Uploader/UploadUI';
 const Folder = ({ propName }) => {
   return (
     <>
-      <UploadUI id={'id'}>
-        {/* <div>folder</div> */}
-        {/* <!-- Simple Folder Icon with Tab --> */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="100"
-          height="100"
-          viewBox="0 0 24 24"
+      <UploadUI>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
         >
-          <rect
-            x="2"
-            y="6"
-            width="20"
-            height="14"
-            rx="2"
-            ry="2"
-            fill="#FFD700"
-          />
-          <rect
-            x="2"
-            y="4"
-            width="10"
-            height="4"
-            rx="1"
-            ry="1"
-            fill="#FFD700"
-          />
-          <rect
-            x="2"
-            y="4"
-            width="10"
-            height="4"
-            rx="1"
-            ry="1"
-            fill="rgba(0,0,0,0.1)"
-          />
-        </svg>
+          <div
+            style={{
+              flexBasis: '20%',
+            }}
+          >
+            <svg
+              width="50"
+              height="50"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 4H2C0.9 4 0 4.9 0 6V18C0 19.1 0.9 20 2 20H22C23.1 20 24 19.1 24 18V8C24 6.9 23.1 6 22 6H12L10 4Z"
+                fill="#FFD700"
+              />
+              <path
+                d="M2 6H10L12 8H22C22.55 8 23 8.45 23 9V18C23 18.55 22.55 19 22 19H2C1.45 19 1 18.55 1 18V7C1 6.45 1.45 6 2 6Z"
+                fill="#F1C40F"
+              />
+            </svg>
+          </div>
 
-        <svg width="100" height="100" viewBox="0 0 24 24">
-          <path
-            d="M2 4 H10 A1 1 0 0 1 11 5 V7 A1 1 0 0 1 10 8 H2 Z"
-            fill="#FFD700"
-          />
-        </svg>
+          <div
+            style={{
+              flexBasis: '80%',
+            }}
+          >
+            Folder Name
+          </div>
+        </div>
       </UploadUI>
     </>
   );
