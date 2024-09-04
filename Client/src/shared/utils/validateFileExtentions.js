@@ -81,6 +81,9 @@ const getNewFileBlockListManager = () => ({
 });
 
 // Takes in files array and returns object/set where the keys are the indecies of files that will not proceed with the upload
+// TODO: Enhance by being able to pass in a dictionary of file extenions to look for
+// export default ({files, blockedExtentions}) => {
+
 export default (files) => {
   const blockedFilesIndecies = getNewFileBlockListManager();
 
