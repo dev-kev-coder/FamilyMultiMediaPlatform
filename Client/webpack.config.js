@@ -13,6 +13,7 @@ module.exports = {
     alias: {
       '@sharedHooks': path.resolve(__dirname + '/src/shared/hooks'),
       '@sharedComponents': path.resolve(__dirname + '/src/shared/components'),
+      '@sharedUtils': path.resolve(__dirname + '/src/shared/utils'),
     },
   },
   module: {

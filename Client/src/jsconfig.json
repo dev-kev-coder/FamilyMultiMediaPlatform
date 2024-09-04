@@ -8,7 +8,8 @@
     "strictFunctionTypes": true,
     "paths": {
       "@sharedComponents/*": ["./shared/components/*"],
-      "@sharedHooks/*": ["./shared/hooks/*"]
+      "@sharedHooks/*": ["./shared/hooks/*"],
+      "@sharedUtils/*": ["./shared/utils/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/*"]
