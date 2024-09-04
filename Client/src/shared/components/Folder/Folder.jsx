@@ -1,11 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UploadUI from '@sharedComponents/Uploader/UploadUI';
+import validateFileExtentions from '@sharedUtils/validateFileExtentions';
 
 const Folder = ({ propName }) => {
   return (
     <>
-      <UploadUI>
+      <UploadUI
+        onDrop={(fileList, e) => {
+          const files = Object.values(fileList);
+
+          const blockedFiles = validateFileExtentions(files);
+
+          console.log('blocked Files: ', blockedFiles);
+        }}
+      >
         <div
           style={{
             display: 'flex',
