@@ -128,7 +128,7 @@ const UploadUI = ({
             onDrop={dropHandler}
             onChange={onChangeHandler}
             htmlFor={id}
-            style={appliedStyle}
+            style={{ display: 'block', ...appliedStyle }}
             className={appliedClassName}
           >
             {children}
