@@ -1,4 +1,5 @@
 import React from 'react';
+import UploadWrapper from './UploadWrapper';
 
 const FoldersAndFilesContainer = ({ children }) => {
   return (
@@ -9,7 +10,7 @@ const FoldersAndFilesContainer = ({ children }) => {
         overflowY: 'auto',
       }}
     >
-      {children}
+      <UploadWrapper>{children}</UploadWrapper>
     </div>
   );
 };

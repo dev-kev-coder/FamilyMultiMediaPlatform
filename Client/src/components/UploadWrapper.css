@@ -1,0 +1,12 @@
+.upload-wrapper,
+.upload-wrapper-drag-over {
+  background-color: #2c2c2c;
+  color: whitesmoke;
+  font-size: 16px;
+  padding: 2px;
+}
+
+.upload-wrapper-drag-over {
+  border: whitesmoke dashed 2px;
+  padding: 0px;
+}
