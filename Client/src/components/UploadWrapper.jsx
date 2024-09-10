@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import validateFileExtentions from '@sharedUtils/validateFileExtentions';
-import './UploadWrapper.css';
 import UploadUI from '../shared/components/Uploader/UploadUI';
+import './UploadWrapper.css';
 
 const UploadWrapper = ({ children }) => {
   return (
@@ -16,8 +16,8 @@ const UploadWrapper = ({ children }) => {
       }}
       className="upload-wrapper"
       isDragOverClassName="upload-wrapper-drag-over"
+      mode='drop'
     >
-      {/* <div style={{ padding: '20px' }}>{children}</div> */}
       {children}
     </UploadUI>
   );

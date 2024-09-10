@@ -11,6 +11,7 @@
 
 input.visually-hidden:is(:focus, :focus-within) + label {
   outline: thin dotted;
+  display: none;
 }
 
 .generic-upload {

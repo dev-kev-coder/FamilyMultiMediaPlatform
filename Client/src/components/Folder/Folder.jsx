@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UploadUI from '@sharedComponents/Uploader/UploadUI';
 import validateFileExtentions from '@sharedUtils/validateFileExtentions';
+import "./Folder.css";
 
 const Folder = ({ propName }) => {
   return (
@@ -12,8 +13,11 @@ const Folder = ({ propName }) => {
 
           const blockedFiles = validateFileExtentions(files);
 
-          console.log('blocked Files: ', blockedFiles);
+        console.log('blocked Files: ', blockedFiles);
+
         }}
+        className="folder-upload"
+        isDragOverClassName="folder-upload-drag-over"
       >
         <div
           style={{

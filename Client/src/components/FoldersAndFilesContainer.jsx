@@ -1,5 +1,5 @@
 import React from 'react';
-import UploadWrapper from './UploadWrapper';
+import Folder from './Folder/Folder';
 
 const FoldersAndFilesContainer = ({ children }) => {
   return (
@@ -10,7 +10,18 @@ const FoldersAndFilesContainer = ({ children }) => {
         overflowY: 'auto',
       }}
     >
-      <UploadWrapper>{children}</UploadWrapper>
+      <div
+        style={{
+          position: 'sticky',
+          top: '0',
+          backgroundColor: '#2C2C2C',
+          height: '4.0em',
+        }}
+      >
+        Header for table here
+      </div>
+
+      <Folder />
     </div>
   );
 };
