@@ -104,6 +104,7 @@ const UploadUI = ({
           type="file"
           accept={acceptFiles}
           multiple={multiple}
+          onChange={onChangeHandler}
         />
 
         {/* Label here will act as our interface for the file input */}
@@ -121,18 +122,16 @@ const UploadUI = ({
             {children}
           </div>
         ) : (
-          <label
+          <div
             onDragEnter={dragEnterHandler}
             onDragOver={dragOverHandler}
             onDragLeave={dragLeaveHandler}
             onDrop={dropHandler}
-            onChange={onChangeHandler}
-            htmlFor={id}
-            style={{ display: 'block', ...appliedStyle }}
+            style={{ ...appliedStyle }}
             className={appliedClassName}
           >
             {children}
-          </label>
+          </div>
         )}
       </div>
     </div>
