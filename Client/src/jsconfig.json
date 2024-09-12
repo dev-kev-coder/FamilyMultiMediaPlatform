@@ -9,7 +9,8 @@
     "paths": {
       "@sharedComponents/*": ["./shared/components/*"],
       "@sharedHooks/*": ["./shared/hooks/*"],
-      "@sharedUtils/*": ["./shared/utils/*"]
+      "@sharedUtils/*": ["./shared/utils/*"],
+      "@sharedConstants/*": ["./shared/constants/*"]
     }
   },
   "exclude": ["node_modules", "**/node_modules/*"]

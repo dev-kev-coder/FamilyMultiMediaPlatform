@@ -14,6 +14,7 @@ module.exports = {
       '@sharedHooks': path.resolve(__dirname + '/src/shared/hooks'),
       '@sharedComponents': path.resolve(__dirname + '/src/shared/components'),
       '@sharedUtils': path.resolve(__dirname + '/src/shared/utils'),
+      '@sharedConstants': path.resolve(__dirname + '/src/shared/constants'),
     },
   },
   module: {
